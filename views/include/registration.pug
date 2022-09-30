@@ -1,0 +1,40 @@
+extends ../layout
+
+block content
+    .reg-box
+        .header
+            h2 Registration
+        form(action="/auth_reg", method="post")
+            .form-group
+                label(for="cedula") cedula
+                input(type="text" name="cedula" class="form-control")
+            .form-group
+                label(for="nombre") nombre
+                input(type="text" name="nombre" class="form-control")
+            .form-group
+                label(for="fecha_nacimiento") fecha_nacimiento
+                input(type="text" name="fecha_nacimiento" class="form-control")
+            .form-group
+                label(for="lugar_nacimiento") lugar_nacimiento
+                input(type="text" name="lugar_nacimiento" class="form-control")
+            .form-group
+                label(for="direccion")  direccion
+                input(type="text" name="direccion" class="form-control")
+            .form-group
+                label(for="genero")  genero
+                input(type="text" name="genero" class="form-control")
+            .form-group
+                label(for="correo")  correo
+                input(type="email" name="correo" class="form-control")
+            .form-group
+                label(for="temasPreferencia")  temasPreferencia
+                input(type="text" name="temasPreferencia" class="form-control")
+            .form-group
+                label(for="contrasena") clave
+                input(type="password" name="contrasena" class="form-control")
+            .form-group
+                label(for="ccontrasena") confirmar clave
+                input(type="password" name="ccontrasena" class="form-control")
+            
+            
+            button(type="submit" class="btn btn-primary") Submit

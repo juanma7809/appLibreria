@@ -1,0 +1,14 @@
+extends ../layout
+
+block content
+    .login-box
+        .header
+            h2 Log In
+        form(action="/auth_login", method="post")
+            .form-group
+                label(for="correo") correo
+                input(type="correo" name="correo" class="form-control shadow-none")
+            .form-group
+                label(for="contrasena") contrasena
+                input(type="contrasena" name="contrasena" class="form-control")
+            button(type="submit" class="btn btn-primary") Iniciar Sesion
