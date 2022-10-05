@@ -1,7 +1,10 @@
 extends layout
 
 block content
+
   link(rel="stylesheet", href="/stylesheets/index.cs")
+  .header
+        a(href="/logout") Cerrar Sesion
   h1= title
   p Bienvenido a #{title}
   -if(flag == 1)
@@ -11,11 +14,5 @@ block content
   .row
     .col-sm-1
     .col-sm-4
-      include include/login
-    .col-sm-1
-    .col-sm-4
-      include include/registration
-    .col-sm-1
-    .col-sm-4
-      include include/rootlogin
-    .col-sm-2
+      include include/resgistrarAdmin
+    

@@ -3,11 +3,11 @@ extends ../layout
 block content
     .login-box
         .header
-            h2 Inicio Sesion
-        form(action="/auth_login", method="post")
+            h2 Inicio Sesion Root
+        form(action="/auth_rootlogin", method="post")
             .form-group
-                label(for="correo") correo
-                input(type="correo" name="correo" class="form-control shadow-none")
+                label(for="usuario") usuario
+                input(type="text" name="usuario" class="form-control shadow-none")
             .form-group
                 label(for="contrasena") contrasena
                 input(type="contrasena" name="contrasena" class="form-control")

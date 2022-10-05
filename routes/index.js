@@ -75,17 +75,37 @@ router.post('/auth_reg', function(req, res, next){
 //Handle POST request for User Login
 router.post('/auth_login', function(req,res,next){
 
-  var correo = req.body.correo;
+  var correo1 = req.body.correo;
   var password =req.body.contrasena;
-
   var sql = 'select * from cliente where correo = ?;';
-  
-  con.query(sql,[correo], function(err,result, fields){
+  con.query(sql,[correo1], function(err,result, fields){
     if(err) throw err;
 
     if(result.length && bcrypt.compareSync(password, result[0].contrasena)){
-      req.session.correo = correo;
-      res.redirect('/home');
+      req.session.role = result[0].role;
+      req.session.usuario = result[0].nombre;
+      res.redirect('/libreria');
+    }else{
+      req.session.flag = 4;
+      res.redirect('/');
+    }
+  });
+});
+
+router.post('/auth_rootlogin', function(req,res,next){
+
+  var usuario = req.body.usuario;
+  var password =req.body.contrasena;
+  console.log(usuario);
+  console.log(password);
+  var sql = 'select * from Root where usuario = ?;';
+  con.query(sql,[usuario], function(err,result, fields){
+    if(err) throw err;
+
+    if(result.length && bcrypt.compareSync(password, result[0].contrasena)){
+      req.session.role = result[0].role;
+      req.session.usuario = result[0].usuario;
+      res.redirect('/libreria');
     }else{
       req.session.flag = 4;
       res.redirect('/');
@@ -95,12 +115,22 @@ router.post('/auth_login', function(req,res,next){
 
 
 //Route For Home Page
-router.get('/home', function(req, res, next){
-  res.render('home', {message : 'Welcome, ' + req.session.correo});
+router.get('/libreria', function(req, res, next){
+  if(req.session.role == 'cliente'){
+    var permissions = 1
+  }else if(req.session.role == 'admin'){
+    var permissions = 2
+  }else if(req.session.role == 'root'){
+    var permissions = 3
+  }else{
+    var permissions = 4;
+  }
+  res.render('libreria', {message : 'Bienvenido ' + req.session.usuario + ", " + req.session.role});
+  res.render('libreria', {role : req.session.role, flag : permissions });
 });
 
 router.get('/logout', function(req, res, next){
-  if(req.session.correo){
+  if(req.session.usuario){
     req.session.destroy();
     res.redirect('/');
   }
